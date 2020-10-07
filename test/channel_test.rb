@@ -19,7 +19,7 @@ describe 'Channel' do
     end
 
     it "member count is an Integer" do
-      expect(@channel.member_count).must_be_instance_of String
+      expect(@channel.member_count).must_be_instance_of Integer
     end
   end
 end

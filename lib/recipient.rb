@@ -14,8 +14,8 @@ module SlackCLI
     end
 
     def self.validate_id(id)
-      if id.nil? || id <= 0
-        raise ArgumentError, 'ID cannot be blank or less than one.'
+      if id.nil?
+        raise ArgumentError, 'ID cannot be blank.'
       end
     end
 

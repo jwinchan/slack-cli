@@ -29,13 +29,13 @@ describe "Recipient" do
 
   describe 'details' do
     it "raises error if not implemented" do
-      expect(@recipient.details).must_raise NotImplementedError
+      expect{@recipient.details}.must_raise NotImplementedError
     end
   end
 
   describe 'list_all' do
     it "raises error if not implemented" do
-      expect(@recipient.list_all).must_raise NotImplementedError
+      expect{SlackCLI::Recipient.list_all}.must_raise NotImplementedError
     end
   end
 end
