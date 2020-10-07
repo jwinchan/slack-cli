@@ -17,3 +17,14 @@ describe "initialize" do
     expect(@recipient.name).must_be_instance_of String
   end
 end
+
+describe "self.get method" do
+  # before do
+  #   @recipient = SlackCLI::Recipient.new("1234ID", "Namey Nameson")
+  # end
+  it "raises ArgumentError for incorrect parameters" do
+    expect{SlackCLI::Recipient.get("url", "not a hash")}.must_raise ArgumentError
+  end
+end
+
+describe
