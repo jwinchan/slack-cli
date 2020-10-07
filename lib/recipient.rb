@@ -7,9 +7,16 @@ module SlackCLI
   class Recipient
 
     attr_reader :name, :slack_id
-    def initialize(slack_id: , name: )
+    def initialize(slack_id:, name:)
+      self.class.validate_id(slack_id)
       @slack_id = slack_id
       @name = name
+    end
+
+    def self.validate_id(id)
+      if id.nil? || id <= 0
+        raise ArgumentError, 'ID cannot be blank or less than one.'
+      end
     end
 
     def self.get(url, params)
