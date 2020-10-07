@@ -5,7 +5,7 @@ Minitest::Reporters.use! Minitest::Reporters::SpecReporter.new
 describe "Recipient" do
 
   before do
-    @recipient = SlackCLI::Recipient.new()
+    @recipient = SlackCLI::Recipient.new(name: "Namey Nameson", slack_id: "1928id")
   end
 
   describe "initialize" do
