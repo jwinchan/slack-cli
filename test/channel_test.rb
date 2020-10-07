@@ -3,7 +3,7 @@ require_relative 'test_helper'
 describe 'Channel' do
   describe "initialize" do
     before do
-      @channel = SlackCLI::Channel.new()
+      @channel = SlackCLI::Channel.new(slack_id: "1234id", name: "Channely Channelson", topic: "topic", member_count: 24)
     end
     it "constructor properly creates a Channel object" do
       expect(@channel).must_be_instance_of SlackCLI::Channel
