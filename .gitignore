@@ -4,3 +4,4 @@
 
 # Ignore environemnt variables
 lib/.env
+test/.env

@@ -5,15 +5,15 @@ require_relative 'workspace'
 
 def main
   puts "Welcome to the Ada Slack CLI!"
-  workspace = Workspace.new
+  workspace = SlackCLI::Workspace.new
 
   option = nil
 
   until option == "quit" || option == "3"
     if option == "list users" || option == "1"
-      puts workspace.users
+      puts workspace.list_users
     elsif option == "list channels" || option == "2"
-      puts workspace.channels
+      puts workspace.list_channels
     end
     menu
     option = gets.chomp
