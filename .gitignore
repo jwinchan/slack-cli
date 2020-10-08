@@ -3,5 +3,4 @@
 .DS_Store
 
 # Ignore environemnt variables
-lib/.env
-test/.env
+.env
