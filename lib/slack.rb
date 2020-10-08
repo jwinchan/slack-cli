@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'dotenv'
 require 'httparty'
+require 'table_print'
 require_relative 'workspace'
 
 def main
