@@ -12,7 +12,7 @@ def main
 
   option = nil
   current_selection = nil
-  until option == "quit" || option == "6"
+  until option == "quit" || option == "7"
     if option == "list users" || option == "1"
       puts workspace.list_users
     elsif option == "list channels" || option == "2"
@@ -39,6 +39,10 @@ def main
       end
     elsif option == "details" || option == "5"
       puts workspace.show_details(current_selection)
+    elsif option == "send message" || option == "6"
+      puts "please enter message"
+      message = gets.chomp
+      workspace.send_message(message, current_selection)
     end
     menu
     option = gets.chomp.downcase
@@ -54,7 +58,8 @@ def menu
   puts "3. select user"
   puts "4. select channel"
   puts "5. details"
-  puts "6. quit"
+  puts "6. send message"
+  puts "7. quit"
 end
 
 main if __FILE__ == $PROGRAM_NAME
