@@ -33,4 +33,34 @@ describe 'Workspace' do
       expect(@workspace.list_channels.first).must_equal "Slack ID: C01BL0GSPP1, name: good-place-simulation, topic: torture Chidi, member count: 2"
     end
   end
+
+  describe "select method" do
+
+    it "raises ArgumentError if name or id isn't provided" do
+      expect{@workspace.select(recipient_class: "user")}.must_raise ArgumentError
+    end
+
+    it "returns correct User" do
+      expect(@workspace.select(recipient_class: "user", id: "USLACKBOT").name).must_equal "slackbot"
+    end
+
+    it "returns correct Channel" do
+      expect(@workspace.select(recipient_class: "channel", name: "general").slack_id).must_equal "C01BU0NRFHC"
+    end
+
+  end
+
+  describe "show details method" do
+    before do
+      @user = SlackCLI::User.new(slack_id: "1234asdf", name: "testname", real_name: "bob", status_text: "i am a status", status_emoji: ":grr:")
+    end
+
+    it "returns a string" do
+      expect(@workspace.show_details(@user)).must_be_instance_of String
+    end
+
+    it "returns accurate information" do
+      expect(@workspace.show_details(@user)).must_equal @user.details
+    end
+  end
 end
