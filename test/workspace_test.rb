@@ -63,4 +63,22 @@ describe 'Workspace' do
       expect(@workspace.show_details(@user)).must_equal @user.details
     end
   end
+
+  describe "send_message method" do
+    it "can send a valid message to user" do
+      VCR.use_cassette("slack-posts-user") do
+        recipient = @workspace.select(recipient_class: "user", id: "U01C6TTNL6Q")
+        response = @workspace.send_message("Test Test Test", recipient)
+        expect(response).must_equal true
+      end
+    end
+
+    it "can send a valid message to channel" do
+      VCR.use_cassette("slack-posts-channel") do
+        recipient = @workspace.select(recipient_class: "channel", id: "C01BU0NRFHC")
+        response = @workspace.send_message("Test Test Test", recipient)
+        expect(response).must_equal true
+      end
+    end
+  end
 end
