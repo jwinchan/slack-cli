@@ -4,6 +4,8 @@ require 'httparty'
 require_relative 'workspace'
 
 def main
+  Dotenv.load
+
   puts "Welcome to the Ada Slack CLI!"
   workspace = SlackCLI::Workspace.new
 
