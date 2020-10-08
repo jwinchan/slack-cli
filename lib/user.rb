@@ -20,7 +20,7 @@ module SlackCLI
     end
 
     def details
-
+      return "ID: #{@slack_id} \nName: #{@name} \nReal Name: #{@real_name} \nStatus: #{@status_text} \nEmoji: #{@status_emoji}"
     end
 
 
