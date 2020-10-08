@@ -5,7 +5,7 @@ require_relative 'workspace'
 
 def main
   puts "Welcome to the Ada Slack CLI!"
-  workspace = Workspace.new
+  workspace = SlackCLI::Workspace.new
 
   option = nil
 
