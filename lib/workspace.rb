@@ -1,7 +1,4 @@
-require 'dotenv'
 require 'httparty'
-
-Dotenv.load
 
 module SlackCLI
   class Workspace
