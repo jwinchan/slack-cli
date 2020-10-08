@@ -11,9 +11,9 @@ def main
 
   until option == "quit" || option == "3"
     if option == "list users" || option == "1"
-      puts workspace.users
+      puts workspace.list_users
     elsif option == "list channels" || option == "2"
-      puts workspace.channels
+      puts workspace.list_channels
     end
     menu
     option = gets.chomp
