@@ -22,7 +22,7 @@ module SlackCLI
     end
 
     def select(recipient_class:, name: nil, id: nil)
-      return ArgumentError.new("Both arguments cannot be empty at once") if(name == nil && id == nil)
+      raise ArgumentError.new("Both arguments cannot be empty at once") if(name == nil && id == nil)
 
       if(recipient_class == "user")
         if name
@@ -40,6 +40,10 @@ module SlackCLI
         end
       end
 
+    end
+
+    def show_details(recipient)
+      return recipient.details
     end
 
   end
