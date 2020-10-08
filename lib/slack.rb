@@ -38,7 +38,7 @@ def main
         current_selection = workspace.select(recipient_class: "channel", name: gets.chomp)
       end
     elsif option == "details" || option == "5"
-      puts current_selection.details
+      puts workspace.show_details(current_selection)
     end
     menu
     option = gets.chomp.downcase
