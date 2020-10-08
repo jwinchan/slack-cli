@@ -46,5 +46,21 @@ module SlackCLI
       return recipient.details
     end
 
+    def send_message(message, recipient)
+      response = HTTParty.post(
+          "https://slack.com/api/chat.postMessage",
+          body:  {
+              token: ENV["SLACK_API_TOKEN"],
+              text: message,
+              channel: recipient.slack_id,
+              as_user: "true"
+          },
+          headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
+      )
+
+      return response.code == 200 && response.parsed_response["ok"]
+    end
+
+
   end
 end
