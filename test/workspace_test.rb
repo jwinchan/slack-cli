@@ -3,7 +3,6 @@ require_relative 'test_helper'
 describe 'Workspace' do
 
   before do
-    sleep(1)
     VCR.use_cassette("user_channel_find") do
       @workspace = SlackCLI::Workspace.new
     end
@@ -15,7 +14,7 @@ describe 'Workspace' do
     end
 
     it "creates an array of User objects" do
-      expect(@workspace.users).must_be_nil  #must_be_instance_of SlackCLI::User
+      expect(@workspace.users.first).must_be_instance_of SlackCLI::User
     end
 
     it "creates an array of Channel objects" do
@@ -24,10 +23,14 @@ describe 'Workspace' do
   end
 
   describe "list users method" do
-
+    it "returns an accurate string" do
+      expect(@workspace.list_users.first).must_equal "Slack ID: USLACKBOT, Username: slackbot, Real name: Slackbot"
+    end
   end
 
   describe "list channels method" do
-
+    it "returns an accurate string" do
+      expect(@workspace.list_channels.first).must_equal "Slack ID: C01BL0GSPP1, name: good-place-simulation, topic: torture Chidi, member count: 2"
+    end
   end
 end
