@@ -19,5 +19,9 @@ module SlackCLI
       end
     end
 
+    def details
+      return "ID: #{@slack_id} \nName: #{@name} \nTopic: #{@topic} \nMember Count: #{@member_count}"
+    end
+
   end
 end
