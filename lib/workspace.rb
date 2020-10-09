@@ -11,12 +11,10 @@ module SlackCLI
       @channels = Channel.list_all
     end
 
-    #user name, real name, slack Id
     def list_users
       return @users.map{|user| {id: user.slack_id, name: user.name, real_name: user.real_name} }
     end
 
-    #topic, member count, slack ID, topic["value"]
     def list_channels
       return @channels.map{|channel| {id: channel.slack_id, name: channel.name, topic: channel.topic, member_count: channel.member_count}}
     end
@@ -32,12 +30,12 @@ module SlackCLI
     end
 
     def send_message(message, recipient)
+      raise ArgumentError.new("recipient must be of Recipient class") unless recipient.is_a? Recipient
       recipient.send_message(message)
     end
 
     def conversation_history(channel)
       return channel.channel_history
     end
-
   end
 end
