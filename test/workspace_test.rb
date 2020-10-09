@@ -37,15 +37,21 @@ describe 'Workspace' do
   describe "select method" do
 
     it "raises ArgumentError if name or id isn't provided" do
-      expect{@workspace.select(recipient_class: "user")}.must_raise ArgumentError
+      VCR.use_cassette("invalid_select") do
+        expect{@workspace.select("user", nil)}.must_raise ArgumentError
+      end
     end
 
     it "returns correct User" do
-      expect(@workspace.select(recipient_class: "user", id: "USLACKBOT").name).must_equal "slackbot"
+      VCR.use_cassette("select_user") do
+        expect(@workspace.select("user", "USLACKBOT").name).must_equal "slackbot"
+      end
     end
 
     it "returns correct Channel" do
-      expect(@workspace.select(recipient_class: "channel", name: "general").slack_id).must_equal "C01BU0NRFHC"
+      VCR.use_cassette("select_channel") do
+        expect(@workspace.select("channel", "general").slack_id).must_equal "C01BU0NRFHC"
+      end
     end
 
   end
@@ -88,6 +94,26 @@ describe 'Workspace' do
     it "returns an error if wrong channel selected" do
       VCR.use_cassette("slack-posts-wrong-channel") do
         expect{@workspace.send_message("Test Test Test", "2i3nfidl")}.must_raise SlackCLI::SlackAPIError
+      end
+    end
+  end
+
+  describe "coversation history method" do
+    it "returns an Array" do
+      VCR.use_cassette("channel_history") do
+        expect(@workspace.conversation_history("C01BL0GSPP1")).must_be_instance_of Array
+      end
+    end
+
+    it "returns an Array of Strings" do
+      VCR.use_cassette("channel_history") do
+        expect(@workspace.conversation_history("C01BL0GSPP1").first).must_be_instance_of String
+      end
+    end
+
+    it "returns accurate information" do
+      VCR.use_cassette("channel_history") do
+        expect(@workspace.conversation_history("C01BL0GSPP1").first).must_equal "make Chidi choose a puppy"
       end
     end
   end
