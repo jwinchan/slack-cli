@@ -13,12 +13,12 @@ module SlackCLI
 
     #user name, real name, slack Id
     def list_users
-      return @users.map{|user| "Slack ID: #{user.slack_id}\nUsername: #{user.name}\nReal name: #{user.real_name}\n"}
+      return @users.map{|user| {id: user.slack_id, name: user.name, real_name: user.real_name} }
     end
 
     #topic, member count, slack ID, topic["value"]
     def list_channels
-      return @channels.map{|channel| "Slack ID: #{channel.slack_id}\nName: #{channel.name}\nTopic: #{channel.topic}\nMember count: #{channel.member_count}\n"}
+      return @channels.map{|channel| {id: channel.slack_id, name: channel.name, topic: channel.topic, member_count: channel.member_count}}
     end
 
     def select(recipient_class, identifier)
@@ -31,29 +31,13 @@ module SlackCLI
       return recipient.details
     end
 
-    def send_message(message, recipient_id)
-
-      response = HTTParty.post(
-          "https://slack.com/api/chat.postMessage",
-          body:  {
-              token: ENV["SLACK_API_TOKEN"],
-              text: message,
-              channel: recipient_id,
-              as_user: "true"
-          },
-          headers: { 'Content-Type' => 'application/x-www-form-urlencoded' }
-      )
-
-      unless response.code == 200 && response.parsed_response["ok"]
-        raise SlackAPIError.new("Error: #{response.parsed_response["error"]}")
-      end
-
-      return true
+    def send_message(message, recipient)
+      recipient.send_message(message)
     end
 
-    def conversation_history(channel_id)
-      response = HTTParty.get("https://slack.com/api/conversations.history", query: {token: ENV["SLACK_API_TOKEN"], channel: channel_id})
-      return response["messages"].map{ |message| message["text"] }
+    def conversation_history(channel)
+      return channel.channel_history
     end
+
   end
 end
