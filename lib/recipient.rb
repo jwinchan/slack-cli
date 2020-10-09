@@ -33,5 +33,8 @@ module SlackCLI
       raise NotImplementedError, 'Implement me in a child class!'
     end
 
+    def self.select(identifier)
+      return self.list_all.find{|recipient| recipient.slack_id == identifier || recipient.name == identifier}
+    end
   end
 end
