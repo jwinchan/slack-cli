@@ -23,14 +23,14 @@ describe 'Workspace' do
   end
 
   describe "list users method" do
-    it "returns an accurate string" do
-      expect(@workspace.list_users.first).must_equal "Slack ID: USLACKBOT, Username: slackbot, Real name: Slackbot"
+    it "returns an accurate hash" do
+      expect(@workspace.list_users.first).must_equal ({:id=>"USLACKBOT", :name=>"slackbot", :real_name=>"Slackbot"})
     end
   end
 
   describe "list channels method" do
-    it "returns an accurate string" do
-      expect(@workspace.list_channels.first).must_equal "Slack ID: C01BL0GSPP1, name: good-place-simulation, topic: torture Chidi, member count: 2"
+    it "returns accurate hash" do
+      expect(@workspace.list_channels.first).must_equal ({:id=>"C01BL0GSPP1", :name=>"good-place-simulation", :topic=>"torture Chidi", :member_count=>2})
     end
   end
 
