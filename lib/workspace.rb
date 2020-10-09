@@ -13,23 +13,18 @@ module SlackCLI
 
     #user name, real name, slack Id
     def list_users
-      return @users.map{|user| "Slack ID: #{user.slack_id}, Username: #{user.name}, Real name: #{user.real_name}"}
+      return @users.map{|user| "Slack ID: #{user.slack_id}\nUsername: #{user.name}\nReal name: #{user.real_name}\n"}
     end
 
     #topic, member count, slack ID, topic["value"]
     def list_channels
-      return @channels.map{|channel| "Slack ID: #{channel.slack_id}, name: #{channel.name}, topic: #{channel.topic}, member count: #{channel.member_count}"}
+      return @channels.map{|channel| "Slack ID: #{channel.slack_id}\nName: #{channel.name}\nTopic: #{channel.topic}\nMember count: #{channel.member_count}\n"}
     end
 
     def select(recipient_class, identifier)
       raise ArgumentError.new("Argument cannot be empty") if(identifier == nil)
-      raise ArgumentError.new("Recipient class must be user or channel") unless recipient_class == "user" || recipient_class == "channel"
-
-      if(recipient_class == "user")
-        return User.select(identifier)
-      elsif(recipient_class == "channel")
-        return Channel.select(identifier)
-      end
+      raise ArgumentError.new("Recipient class must be user or channel") unless recipient_class == SlackCLI::User || recipient_class == SlackCLI::Channel
+      recipient_class.select(identifier)
     end
 
     def show_details(recipient)
@@ -60,9 +55,5 @@ module SlackCLI
       response = HTTParty.get("https://slack.com/api/conversations.history", query: {token: ENV["SLACK_API_TOKEN"], channel: channel_id})
       return response["messages"].map{ |message| message["text"] }
     end
-
-
-
-
   end
 end
