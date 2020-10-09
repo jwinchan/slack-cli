@@ -24,13 +24,5 @@ module SlackCLI
     end
 
 
-
-    private
-
-    def self.from_api(json_hash)
-
-    end
-
-
   end
 end
