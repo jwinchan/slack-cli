@@ -2,7 +2,6 @@ require_relative 'recipient'
 
 module SlackCLI
   class User < Recipient
-    USER_PATH = "https://slack.com/api/users.list"
 
     attr_reader :slack_id, :name, :real_name, :status_text, :status_emoji
 
@@ -14,7 +13,7 @@ module SlackCLI
     end
 
     def self.list_all
-      return self.get(USER_PATH, {token: ENV["SLACK_API_TOKEN"]})["members"].map do |user|
+      return self.get("users.list", {token: ENV["SLACK_API_TOKEN"]})["members"].map do |user|
         self.new(slack_id: user["id"], name: user["name"], real_name: user["real_name"], status_text: user["profile"]["status_text"], status_emoji: user["profile"]["status_emoji"])
       end
     end
@@ -22,7 +21,6 @@ module SlackCLI
     def details
       return "ID: #{@slack_id} \nName: #{@name} \nReal Name: #{@real_name} \nStatus: #{@status_text} \nEmoji: #{@status_emoji}"
     end
-
 
   end
 end
