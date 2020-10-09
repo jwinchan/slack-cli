@@ -25,6 +25,19 @@ describe "Recipient" do
     it "raises ArgumentError for incorrect parameters" do
       expect{SlackCLI::Recipient.get("url", "not a hash")}.must_raise ArgumentError
     end
+
+    it "raises SlackAPIError for bad API call" do
+      VCR.use_cassette("self.get API error") do
+        expect{SlackCLI::Recipient.get("https://slack.com/api/users.list", {token: "sggreg"})}.must_raise SlackCLI::SlackAPIError
+      end
+    end
+
+    it "returns HTTParty::Response for succesful calls" do
+      VCR.use_cassette("self.get nominal") do
+        expect(SlackCLI::Recipient.get("https://slack.com/api/users.list", {token: ENV["SLACK_API_TOKEN"]})).must_be_instance_of HTTParty::Response
+      end
+    end
+
   end
 
   describe 'details' do
