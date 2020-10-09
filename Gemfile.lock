@@ -33,6 +33,7 @@ GEM
       docile (~> 1.1)
       simplecov-html (~> 0.11)
     simplecov-html (0.12.3)
+    table_print (1.5.7)
     vcr (6.0.0)
 
 PLATFORMS
@@ -48,6 +49,7 @@ DEPENDENCIES
   pry
   rake
   simplecov
+  table_print
   vcr
 
 BUNDLED WITH

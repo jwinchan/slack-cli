@@ -9,6 +9,6 @@ gem "pry"
 gem 'minitest-skip'
 gem 'httparty'
 gem 'dotenv'
-#gem 'table_print'
+gem 'table_print'
 gem 'vcr'
 gem 'simplecov'
