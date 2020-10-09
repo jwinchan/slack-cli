@@ -21,8 +21,12 @@ module SlackCLI
 
     def self.get(url, params)
       raise ArgumentError.new("invalid arguments") unless (url.is_a?(String) && params.is_a?(Hash))
-      api_info = HTTParty.get(url, query: params)
-      return api_info
+      response = HTTParty.get(url, query: params)
+      unless response.code == 200 && response.parsed_response["ok"]
+        raise SlackAPIError.new("Error: #{response.parsed_response["error"]}")
+      end
+
+      return response
     end
 
     def details
