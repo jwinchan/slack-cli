@@ -18,37 +18,39 @@ def main
     elsif option == "list channels" || option == "2"
       puts workspace.list_channels
     elsif option == "select user" || option == "3"
-      puts "Are you entering the name or id?"
-      name_or_id = gets.chomp
-      if(name_or_id == "id")
-        puts "Please enter id"
-        current_selection = workspace.select(recipient_class: "user", id: gets.chomp)
-      else
-        puts "Please enter name"
-        current_selection = workspace.select(recipient_class: "user", name: gets.chomp)
-      end
+      puts "Enter the name or id"
+      current_selection = workspace.select("user",gets.chomp)
+      puts "Selection not found" if(current_selection.nil?)
     elsif option == "select channel" || option == "4"
-      puts "Are you entering the name or id?"
-      name_or_id = gets.chomp
-      if(name_or_id == "id")
-        puts "Please enter id"
-        current_selection = workspace.select(recipient_class: "channel", id: gets.chomp)
-      else
-        puts "Please enter name"
-        current_selection = workspace.select(recipient_class: "channel", name: gets.chomp)
-      end
+      puts "Enter the name or id"
+      current_selection = workspace.select("channel",gets.chomp)
+      puts "Selection not found" if(current_selection.nil?)
     elsif option == "details" || option == "5"
-      puts workspace.show_details(current_selection)
+      details(current_selection, workspace)
     elsif option == "send message" || option == "6"
-      puts "please enter message"
-      message = gets.chomp
-      workspace.send_message(message, current_selection)
+      send_message(current_selection, workspace)
     end
     menu
     option = gets.chomp.downcase
   end
-
   puts "Thank you for using the Ada Slack CLI"
+end
+
+def details(recipient, workspace)
+  if recipient.nil?
+    puts "No recipient selected"
+  else
+    puts workspace.show_details(recipient)
+  end
+end
+
+def send_message(recipient, workspace)
+  if recipient.nil?
+    puts "No recipient selected"
+  else
+    puts "please enter message"
+    workspace.send_message(gets.chomp, recipient)
+  end
 end
 
 def menu
