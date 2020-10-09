@@ -19,11 +19,11 @@ def main
       puts workspace.list_channels
     elsif option == "select user" || option == "3"
       puts "Enter the name or id"
-      current_selection = workspace.select("user",gets.chomp)
+      current_selection = workspace.select(SlackCLI::User,gets.chomp)
       puts "Selection not found" if(current_selection.nil?)
     elsif option == "select channel" || option == "4"
       puts "Enter the name or id"
-      current_selection = workspace.select("channel",gets.chomp)
+      current_selection = workspace.select(SlackCLI::Channel,gets.chomp)
       puts "Selection not found" if(current_selection.nil?)
     elsif option == "details" || option == "5"
       details(current_selection, workspace)
@@ -59,7 +59,7 @@ def send_message(recipient, workspace)
 end
 
 def message_history(recipient, workspace)
-  if recipient.nil? || recipient.is_a? User
+  if recipient.nil? || recipient.is_a?(SlackCLI::User)
     puts "Please select a channel"
   else
     puts workspace.conversation_history(recipient.slack_id)
