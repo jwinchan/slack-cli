@@ -9,7 +9,7 @@ def main
 
   puts "Welcome to the Ada Slack CLI!\n\n"
   workspace = SlackCLI::Workspace.new
-  puts "This workspace has #{workspace.list_channels.length} channels and #{workspace.list_users.length} users."
+  puts "This workspace has #{workspace.channels.length} channels and #{workspace.users.length} users."
 
   option = nil
   current_selection = nil
