@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 require 'dotenv'
 require 'httparty'
-#require 'table_print'
+require 'table_print'
 require_relative 'workspace'
 
 def main
@@ -14,9 +14,9 @@ def main
   current_selection = nil
   until option == "quit" || option == "8"
     if option == "list users" || option == "1"
-      puts workspace.list_users
+      tp workspace.list_users
     elsif option == "list channels" || option == "2"
-      puts workspace.list_channels
+      tp workspace.list_channels
     elsif option == "select user" || option == "3"
       puts "Enter the name or id"
       current_selection = workspace.select(SlackCLI::User,gets.chomp)
@@ -31,6 +31,8 @@ def main
       send_message(current_selection, workspace)
     elsif option == "channel history" || option == "7"
       message_history(current_selection, workspace)
+    elsif option.nil?
+      puts ""
     else
       puts "Please input a valid option"
     end
@@ -52,9 +54,8 @@ def send_message(recipient, workspace)
   if recipient.nil?
     puts "No recipient selected"
   else
-    puts "please enter message"
-    message = gets.chomp
-    workspace.send_message(message, recipient.slack_id)
+    puts "Please enter message"
+    workspace.send_message(gets.chomp, recipient)
   end
 end
 
@@ -62,7 +63,7 @@ def message_history(recipient, workspace)
   if recipient.nil? || recipient.is_a?(SlackCLI::User)
     puts "Please select a channel"
   else
-    puts workspace.conversation_history(recipient.slack_id)
+    puts workspace.conversation_history(recipient)
   end
 end
 
