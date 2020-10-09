@@ -38,22 +38,27 @@ describe 'Workspace' do
 
     it "raises ArgumentError if name or id isn't provided" do
       VCR.use_cassette("invalid_select") do
-        expect{@workspace.select("user", nil)}.must_raise ArgumentError
+        expect{@workspace.select(SlackCLI::User, nil)}.must_raise ArgumentError
+      end
+    end
+
+    it "raises ArgumentError if class isn't User or Channel" do
+      VCR.use_cassette("invalid_select") do
+        expect{@workspace.select(Array, "USLACKBOT")}.must_raise ArgumentError
       end
     end
 
     it "returns correct User" do
       VCR.use_cassette("select_user") do
-        expect(@workspace.select("user", "USLACKBOT").name).must_equal "slackbot"
+        expect(@workspace.select(SlackCLI::User, "USLACKBOT").name).must_equal "slackbot"
       end
     end
 
     it "returns correct Channel" do
       VCR.use_cassette("select_channel") do
-        expect(@workspace.select("channel", "general").slack_id).must_equal "C01BU0NRFHC"
+        expect(@workspace.select(SlackCLI::Channel, "general").slack_id).must_equal "C01BU0NRFHC"
       end
     end
-
   end
 
   describe "show details method" do
@@ -98,7 +103,7 @@ describe 'Workspace' do
     end
   end
 
-  describe "coversation history method" do
+  describe "conversation history method" do
     it "returns an Array" do
       VCR.use_cassette("channel_history") do
         expect(@workspace.conversation_history("C01BL0GSPP1")).must_be_instance_of Array
