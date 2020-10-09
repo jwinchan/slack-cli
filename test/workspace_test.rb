@@ -67,17 +67,27 @@ describe 'Workspace' do
   describe "send_message method" do
     it "can send a valid message to user" do
       VCR.use_cassette("slack-posts-user") do
-        recipient = @workspace.select(recipient_class: "user", id: "U01C6TTNL6Q")
-        response = @workspace.send_message("Test Test Test", recipient)
+        response = @workspace.send_message("Test Test Test", "U01C6TTNL6Q")
         expect(response).must_equal true
       end
     end
 
     it "can send a valid message to channel" do
       VCR.use_cassette("slack-posts-channel") do
-        recipient = @workspace.select(recipient_class: "channel", id: "C01BU0NRFHC")
-        response = @workspace.send_message("Test Test Test", recipient)
+        response = @workspace.send_message("Test Test Test", "C01BU0NRFHC")
         expect(response).must_equal true
+      end
+    end
+
+    it "returns an error if no recipient selected" do
+      VCR.use_cassette("slack-posts-no-recipient") do
+        expect{@workspace.send_message("Test Test Test", nil)}.must_raise SlackCLI::SlackAPIError
+      end
+    end
+
+    it "returns an error if wrong channel selected" do
+      VCR.use_cassette("slack-posts-wrong-channel") do
+        expect{@workspace.send_message("Test Test Test", "2i3nfidl")}.must_raise SlackCLI::SlackAPIError
       end
     end
   end

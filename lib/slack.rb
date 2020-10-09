@@ -49,7 +49,8 @@ def send_message(recipient, workspace)
     puts "No recipient selected"
   else
     puts "please enter message"
-    workspace.send_message(gets.chomp, recipient)
+    message = gets.chomp
+    workspace.send_message(message, recipient.slack_id)
   end
 end
 
