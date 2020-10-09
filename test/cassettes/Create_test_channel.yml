@@ -1,0 +1,73 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://slack.com/api/conversations.list?token=SLACK_API_TOKEN
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 09 Oct 2020 04:47:03 GMT
+      Server:
+      - Apache
+      X-Slack-Req-Id:
+      - b43914cd4e772d9c21953e590b9299fc
+      X-Oauth-Scopes:
+      - chat:write,users:read,channels:read,channels:history,groups:history
+      Access-Control-Expose-Headers:
+      - x-slack-req-id, retry-after
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Slack-Backend:
+      - r
+      X-Content-Type-Options:
+      - nosniff
+      Expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      X-Xss-Protection:
+      - '0'
+      X-Accepted-Oauth-Scopes:
+      - channels:read,groups:read,mpim:read,im:read,read
+      Access-Control-Allow-Headers:
+      - slack-route, x-slack-version-ts, x-b3-traceid, x-b3-spanid, x-b3-parentspanid,
+        x-b3-sampled, x-b3-flags
+      Vary:
+      - Accept-Encoding
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Referrer-Policy:
+      - no-referrer
+      Content-Length:
+      - '758'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Via:
+      - haproxy-www-49je,haproxy-edge-iad-qh1k
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ok":true,"channels":[{"id":"C01BL0GSPP1","name":"good-place-simulation","is_channel":true,"is_group":false,"is_im":false,"created":1601951127,"is_archived":false,"is_general":false,"unlinked":0,"name_normalized":"good-place-simulation","is_shared":false,"parent_conversation":null,"creator":"U01C6TTNL6Q","is_ext_shared":false,"is_org_shared":false,"shared_team_ids":["T01CDB91DEV"],"pending_shared":[],"pending_connected_team_ids":[],"is_pending_ext_shared":false,"is_member":true,"is_private":false,"is_mpim":false,"topic":{"value":"torture
+        Chidi","creator":"U01C0N8RAUS","last_set":1602116354},"purpose":{"value":"This
+        *channel* is for working on a project. Hold meetings, share docs, and make
+        decisions together with your team.","creator":"U01C6TTNL6Q","last_set":1601951127},"previous_names":[],"num_members":4},{"id":"C01BU0NRFHC","name":"general","is_channel":true,"is_group":false,"is_im":false,"created":1601950932,"is_archived":false,"is_general":true,"unlinked":0,"name_normalized":"general","is_shared":false,"parent_conversation":null,"creator":"U01C6TTNL6Q","is_ext_shared":false,"is_org_shared":false,"shared_team_ids":["T01CDB91DEV"],"pending_shared":[],"pending_connected_team_ids":[],"is_pending_ext_shared":false,"is_member":true,"is_private":false,"is_mpim":false,"topic":{"value":"","creator":"","last_set":0},"purpose":{"value":"This
+        is the one channel that will always include everyone. It\u2019s a great spot
+        for announcements and team-wide conversations.","creator":"U01C6TTNL6Q","last_set":1601950932},"previous_names":[],"num_members":4},{"id":"C01C2B4BJ30","name":"jasons-bud-hole","is_channel":true,"is_group":false,"is_im":false,"created":1602195856,"is_archived":false,"is_general":false,"unlinked":0,"name_normalized":"jasons-bud-hole","is_shared":false,"parent_conversation":null,"creator":"U01BL0TC86B","is_ext_shared":false,"is_org_shared":false,"shared_team_ids":["T01CDB91DEV"],"pending_shared":[],"pending_connected_team_ids":[],"is_pending_ext_shared":false,"is_member":true,"is_private":false,"is_mpim":false,"topic":{"value":"boooortles","creator":"U01C0N8RAUS","last_set":1602195936},"purpose":{"value":"","creator":"","last_set":0},"previous_names":[],"num_members":4},{"id":"C01CDB91LJV","name":"random","is_channel":true,"is_group":false,"is_im":false,"created":1601950932,"is_archived":false,"is_general":false,"unlinked":0,"name_normalized":"random","is_shared":false,"parent_conversation":null,"creator":"U01C6TTNL6Q","is_ext_shared":false,"is_org_shared":false,"shared_team_ids":["T01CDB91DEV"],"pending_shared":[],"pending_connected_team_ids":[],"is_pending_ext_shared":false,"is_member":true,"is_private":false,"is_mpim":false,"topic":{"value":"","creator":"","last_set":0},"purpose":{"value":"This
+        channel is for... well, everything else. It\u2019s a place for team jokes,
+        spur-of-the-moment ideas, and funny GIFs. Go wild!","creator":"U01C6TTNL6Q","last_set":1601950932},"previous_names":[],"num_members":4}],"response_metadata":{"next_cursor":""}}'
+  recorded_at: Fri, 09 Oct 2020 04:47:03 GMT
+recorded_with: VCR 6.0.0

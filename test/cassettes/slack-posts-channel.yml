@@ -132,4 +132,71 @@ http_interactions:
       encoding: ASCII-8BIT
       string: '{"ok":false,"error":"channel_not_found"}'
   recorded_at: Fri, 09 Oct 2020 00:10:10 GMT
+- request:
+    method: post
+    uri: https://slack.com/api/chat.postMessage
+    body:
+      encoding: UTF-8
+      string: token=SLACK_API_TOKEN&text=Test%20Test%20Test&channel=C01BL0GSPP1&as_user=true
+    headers:
+      Content-Type:
+      - application/x-www-form-urlencoded
+      Accept-Encoding:
+      - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
+      Accept:
+      - "*/*"
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 09 Oct 2020 04:56:21 GMT
+      Server:
+      - Apache
+      X-Slack-Req-Id:
+      - 502e7179fe507af05dd002fb4b0dff53
+      X-Oauth-Scopes:
+      - chat:write,users:read,channels:read,channels:history,groups:history
+      Access-Control-Expose-Headers:
+      - x-slack-req-id, retry-after
+      Access-Control-Allow-Origin:
+      - "*"
+      X-Slack-Backend:
+      - r
+      X-Content-Type-Options:
+      - nosniff
+      Expires:
+      - Mon, 26 Jul 1997 05:00:00 GMT
+      Cache-Control:
+      - private, no-cache, no-store, must-revalidate
+      X-Xss-Protection:
+      - '0'
+      X-Accepted-Oauth-Scopes:
+      - chat:write
+      Access-Control-Allow-Headers:
+      - slack-route, x-slack-version-ts, x-b3-traceid, x-b3-spanid, x-b3-parentspanid,
+        x-b3-sampled, x-b3-flags
+      Vary:
+      - Accept-Encoding
+      Pragma:
+      - no-cache
+      Strict-Transport-Security:
+      - max-age=31536000; includeSubDomains; preload
+      Referrer-Policy:
+      - no-referrer
+      Content-Length:
+      - '333'
+      Content-Type:
+      - application/json; charset=utf-8
+      X-Via:
+      - haproxy-www-oxoh,haproxy-edge-pdx-ttqn
+    body:
+      encoding: ASCII-8BIT
+      string: '{"ok":true,"channel":"C01BL0GSPP1","ts":"1602219381.001200","message":{"bot_id":"B01C0UMPS1Z","type":"message","text":"Test
+        Test Test","user":"U01CDBMR333","ts":"1602219381.001200","team":"T01CDB91DEV","bot_profile":{"id":"B01C0UMPS1Z","deleted":false,"name":"Water
+        - Iris - API Project","updated":1601951694,"app_id":"A01CDBH7333","icons":{"image_36":"https:\/\/a.slack-edge.com\/80588\/img\/plugins\/app\/bot_36.png","image_48":"https:\/\/a.slack-edge.com\/80588\/img\/plugins\/app\/bot_48.png","image_72":"https:\/\/a.slack-edge.com\/80588\/img\/plugins\/app\/service_72.png"},"team_id":"T01CDB91DEV"}}}'
+  recorded_at: Fri, 09 Oct 2020 04:56:21 GMT
 recorded_with: VCR 6.0.0
