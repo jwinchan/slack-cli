@@ -21,25 +21,15 @@ module SlackCLI
       return @channels.map{|channel| "Slack ID: #{channel.slack_id}, name: #{channel.name}, topic: #{channel.topic}, member count: #{channel.member_count}"}
     end
 
-    def select(recipient_class:, name: nil, id: nil)
-      raise ArgumentError.new("Both arguments cannot be empty at once") if(name == nil && id == nil)
+    def select(recipient_class,identifier)
+      raise ArgumentError.new("Argument cannot be empty") if(identifier == nil)
+      raise ArgumentError.new("Recipient class must be user or channel") unless recipient_class == "user" || recipient_class == "channel"
 
       if(recipient_class == "user")
-        if name
-          return @users.find{|user| user.name == name}
-        else
-          return @users.find{|user| user.slack_id == id}
-        end
+        return User.select(identifier)
+      elsif(recipient_class == "channel")
+        return Channel.select(identifier)
       end
-
-      if(recipient_class == "channel")
-        if name
-          return @channels.find{|channel| channel.name == name}
-        else
-          return @channels.find{|channel| channel.slack_id == id}
-        end
-      end
-
     end
 
     def show_details(recipient)
