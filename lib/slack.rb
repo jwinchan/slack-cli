@@ -7,8 +7,9 @@ require_relative 'workspace'
 def main
   Dotenv.load
 
-  puts "Welcome to the Ada Slack CLI!"
+  puts "Welcome to the Ada Slack CLI!\n\n"
   workspace = SlackCLI::Workspace.new
+  puts "This workspace has #{workspace.list_channels.length} channels and #{workspace.list_users.length} users."
 
   option = nil
   current_selection = nil
