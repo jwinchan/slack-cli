@@ -42,7 +42,7 @@ def main
     elsif option == "send message" || option == "6"
       puts "please enter message"
       message = gets.chomp
-      workspace.send_message(message, current_selection)
+      workspace.send_message(message, current_selection.slack_id)
     end
     menu
     option = gets.chomp.downcase
