@@ -21,7 +21,7 @@ module SlackCLI
       return @channels.map{|channel| "Slack ID: #{channel.slack_id}, name: #{channel.name}, topic: #{channel.topic}, member count: #{channel.member_count}"}
     end
 
-    def select(recipient_class,identifier)
+    def select(recipient_class, identifier)
       raise ArgumentError.new("Argument cannot be empty") if(identifier == nil)
       raise ArgumentError.new("Recipient class must be user or channel") unless recipient_class == "user" || recipient_class == "channel"
 
@@ -55,6 +55,13 @@ module SlackCLI
 
       return true
     end
+
+    def conversation_history(channel_id)
+      response = HTTParty.get("https://slack.com/api/conversations.history", query: {token: ENV["SLACK_API_TOKEN"], channel: channel_id})
+      return response["messages"].map{ |message| message["text"] }
+    end
+
+
 
 
   end
