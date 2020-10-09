@@ -12,7 +12,7 @@ def main
 
   option = nil
   current_selection = nil
-  until option == "quit" || option == "7"
+  until option == "quit" || option == "8"
     if option == "list users" || option == "1"
       puts workspace.list_users
     elsif option == "list channels" || option == "2"
@@ -29,6 +29,10 @@ def main
       details(current_selection, workspace)
     elsif option == "send message" || option == "6"
       send_message(current_selection, workspace)
+    elsif option == "channel history" || option == "7"
+      message_history(current_selection, workspace)
+    else
+      puts "Please input a valid option"
     end
     menu
     option = gets.chomp.downcase
@@ -54,7 +58,16 @@ def send_message(recipient, workspace)
   end
 end
 
+def message_history(recipient, workspace)
+  if recipient.nil? || recipient.is_a? User
+    puts "Please select a channel"
+  else
+    puts workspace.conversation_history(recipient.slack_id)
+  end
+end
+
 def menu
+  puts "**" * 20
   puts "Please select one of the three options: "
   puts "1. list users"
   puts "2. list channels"
@@ -62,7 +75,9 @@ def menu
   puts "4. select channel"
   puts "5. details"
   puts "6. send message"
-  puts "7. quit"
+  puts "7. channel history"
+  puts "8. quit"
+  puts "**" * 20
 end
 
 main if __FILE__ == $PROGRAM_NAME
