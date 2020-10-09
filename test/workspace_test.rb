@@ -1,7 +1,6 @@
 require_relative 'test_helper'
 
 describe 'Workspace' do
-
   before do
     VCR.use_cassette("user_channel_find") do
       @workspace = SlackCLI::Workspace.new
@@ -35,7 +34,6 @@ describe 'Workspace' do
   end
 
   describe "select method" do
-
     it "raises ArgumentError if name or id isn't provided" do
       VCR.use_cassette("invalid_select") do
         expect{@workspace.select(SlackCLI::User, nil)}.must_raise ArgumentError
@@ -76,49 +74,62 @@ describe 'Workspace' do
   end
 
   describe "send_message method" do
+    before do
+      VCR.use_cassette("Create test channel & user") do
+        @channel = SlackCLI::Channel.select("C01BL0GSPP1")
+        @user = SlackCLI::User.select("iris.lux0")
+      end
+    end
+
     it "can send a valid message to user" do
       VCR.use_cassette("slack-posts-user") do
-        response = @workspace.send_message("Test Test Test", "U01C6TTNL6Q")
+        response = @workspace.send_message("Test Test Test", @user)
         expect(response).must_equal true
       end
     end
 
     it "can send a valid message to channel" do
       VCR.use_cassette("slack-posts-channel") do
-        response = @workspace.send_message("Test Test Test", "C01BU0NRFHC")
+        response = @workspace.send_message("Test Test Test", @channel)
         expect(response).must_equal true
       end
     end
 
     it "returns an error if no recipient selected" do
       VCR.use_cassette("slack-posts-no-recipient") do
-        expect{@workspace.send_message("Test Test Test", nil)}.must_raise SlackCLI::SlackAPIError
+        expect{@workspace.send_message("Test Test Test", nil)}.must_raise ArgumentError
       end
     end
 
     it "returns an error if wrong channel selected" do
       VCR.use_cassette("slack-posts-wrong-channel") do
-        expect{@workspace.send_message("Test Test Test", "2i3nfidl")}.must_raise SlackCLI::SlackAPIError
+        expect{@workspace.send_message("Test Test Test", "2i3nfidl")}.must_raise ArgumentError
       end
     end
   end
 
   describe "conversation history method" do
+    before do
+      VCR.use_cassette("Create test channel") do
+        @channel = SlackCLI::Channel.select("C01BL0GSPP1")
+      end
+    end
+
     it "returns an Array" do
       VCR.use_cassette("channel_history") do
-        expect(@workspace.conversation_history("C01BL0GSPP1")).must_be_instance_of Array
+        expect(@workspace.conversation_history(@channel)).must_be_instance_of Array
       end
     end
 
     it "returns an Array of Strings" do
       VCR.use_cassette("channel_history") do
-        expect(@workspace.conversation_history("C01BL0GSPP1").first).must_be_instance_of String
+        expect(@workspace.conversation_history(@channel).first).must_be_instance_of String
       end
     end
 
     it "returns accurate information" do
       VCR.use_cassette("channel_history") do
-        expect(@workspace.conversation_history("C01BL0GSPP1").first).must_equal "make Chidi choose a puppy"
+        expect(@workspace.conversation_history(@channel).first).must_equal "make Chidi choose a puppy"
       end
     end
   end
