@@ -2,7 +2,10 @@ require_relative 'recipient'
 
 module SlackCLI
   class User < Recipient
-
+    #
+    # TEST TEST TEST TES TEST
+    # 
+    #
     attr_reader :slack_id, :name, :real_name, :status_text, :status_emoji
 
     def initialize(slack_id:, name:, real_name:, status_text:, status_emoji:)
